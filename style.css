@@ -1,0 +1,47 @@
+
+body {
+  background-image: linear-gradient(to right, #f6cd28, #df4f00);
+}
+
+input, ul li {
+  background-image: linear-gradient(to right, #f4ba4b, #efa242);
+}
+
+.search-container {
+  text-align: center;
+  margin-top: 33vh;     /* put search about 1/3 down page */
+}
+
+ul {
+  width: 200px;
+  margin: auto;
+  list-style: none;
+  padding-left: 0;  
+  user-select: none;
+}
+
+ul li:hover {
+  background-color: #e65c00;
+  background-image: none;
+}
+
+* {
+  /* box-sizing: border-box; */
+}
+  
+:focus {
+   /* TODO */
+}
+  
+.search-container input,
+.search-container .suggestions {
+  /* TODO */
+}
+
+.search-container input {
+  /* TODO */
+}
+
+ul.has-suggestions {
+  /* TODO */
+}
