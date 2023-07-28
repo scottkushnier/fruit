@@ -3,24 +3,36 @@ const suggestions = document.querySelector('.suggestions ul');
 
 const fruit = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry', 'Boysenberry', 'Currant', 'Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Custard apple', 'Damson', 'Date', 'Dragonfruit', 'Durian', 'Elderberry', 'Feijoa', 'Fig', 'Gooseberry', 'Grape', 'Raisin', 'Grapefruit', 'Guava', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 'Juniper berry', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loquat', 'Longan', 'Lychee', 'Mango', 'Mangosteen', 'Marionberry', 'Melon', 'Cantaloupe', 'Honeydew', 'Watermelon', 'Miracle fruit', 'Mulberry', 'Nectarine', 'Nance', 'Olive', 'Orange', 'Clementine', 'Mandarine', 'Tangerine', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Plantain', 'Plum', 'Pineapple', 'Pomegranate', 'Pomelo', 'Quince', 'Raspberry', 'Salmonberry', 'Rambutan', 'Redcurrant', 'Salak', 'Satsuma', 'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu'];
 
+function markMatched(str, fruit) {
+	const index = fruit.toUpperCase().indexOf(str.toUpperCase());
+	const beforeSlice = fruit.slice(0,index);
+	const afterSlice = fruit.slice(index+str.length);
+	const midSlice = fruit.slice(index,index+str.length);
+	// console.log('before', beforeSlice, 'after', afterSlice);
+	markedFruit = beforeSlice + '<span class="mark">' + midSlice +  '</span>' + afterSlice;
+	// console.log(newFruit);
+	return(markedFruit);
+}
+
 function search(str) {
-	let results = [];
-	if (str !== "") {       /* if no input text, then no suggestions */
-		const strUpper = str.toUpperCase();
-		results = fruit.filter(aFruit => (aFruit.toUpperCase().indexOf(strUpper) !== -1));
-	}
-	return results;
+	const strUpper = str.toUpperCase();
+	const results = fruit.filter(aFruit => (aFruit.toUpperCase().indexOf(strUpper) !== -1));
+	const markedResults = results.map(function (res) { return (markMatched(str, res));});
+	return markedResults;
 }
 
 function searchHandler(e) {
 	// console.log(input.value);
-	const results = search(input.value);
+	let results = [];
+	if (input.value !== "") {                /* if no input text, then no suggestions */
+		results = search(input.value);
+	}
 	showSuggestions(results, null);
 }
 
 function addSuggestion(suggestionText) {
 	const suggestionLi = document.createElement('li');
-	suggestionLi.innerText = suggestionText;
+	suggestionLi.innerHTML = suggestionText;
 	suggestions.appendChild(suggestionLi);
 }
 
